@@ -46,6 +46,7 @@ public class Start {
         return  myDay;
     }
 
+
     public static void main( String[] args ) {
         setup();
         Document myDay = collection.find(eq("date", "20130209")).first();
