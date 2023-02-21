@@ -12,12 +12,12 @@ import java.util.List;
 import static com.mongodb.client.model.Filters.eq;
 
 public class Start {
-    String uri = "mongodb+srv://guohaoqin1:qinguohao1998@cluster0.hecgfzr.mongodb.net/?retryWrites=true&w=majority";
-     String databaseName = "storyline";
-    String collectionName = "fit";
+    static String uri = "mongodb+srv://guohaoqin1:qinguohao1998@cluster0.hecgfzr.mongodb.net/?retryWrites=true&w=majority";
+    static String databaseName = "storyline";
+    static String collectionName = "fit";
     public static MongoCollection<Document> collection;
 
-    public boolean setup() {
+    public static boolean setup() {
         try {
             MongoClient mongoClient = MongoClients.create(uri);
             MongoDatabase database = mongoClient.getDatabase(databaseName);
@@ -44,5 +44,11 @@ public class Start {
             throw new IndexOutOfBoundsException("Can not find the date.");
         }
         return  myDay;
+    }
+
+    public static void main( String[] args ) {
+        setup();
+        Document myDay = collection.find(eq("date", "20130209")).first();
+        System.out.println(myDay.toJson());
     }
 }
