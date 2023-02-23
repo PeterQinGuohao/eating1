@@ -1,6 +1,7 @@
-package repository;
+package Golf.springbootmongodb.repository;
 
-import model.EatingDTO;
+
+import Golf.springbootmongodb.model.EatingDTO;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

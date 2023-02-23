@@ -1,4 +1,4 @@
-package model;
+package Golf.springbootmongodb.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,6 +1,8 @@
-package controller;
+package Golf.springbootmongodb.controller;
 
-import model.EatingDTO;
+
+import Golf.springbootmongodb.model.EatingDTO;
+import Golf.springbootmongodb.repository.EatingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import repository.EatingRepository;
+
 
 import java.util.List;
 
