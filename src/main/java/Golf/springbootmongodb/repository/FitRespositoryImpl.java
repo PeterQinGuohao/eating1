@@ -7,12 +7,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
-/**
- * Copyright:zhaoyang.wicp.vip
- * Author:王昭阳 -小明机器人
- * Date:2023/2/24
- * Description:代码版权声明
- */
+
 @Service
 public class FitRespositoryImpl  {
     @Autowired
