@@ -8,4 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EatingRepository extends MongoRepository<EatingDTO,String> {
 
+    EatingDTO findByDate(String Date);
+
+
 }

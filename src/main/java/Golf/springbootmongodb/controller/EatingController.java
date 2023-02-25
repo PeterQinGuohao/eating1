@@ -6,13 +6,12 @@ import Golf.springbootmongodb.repository.EatingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import Golf.springbootmongodb.model.EatingDTO;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class EatingController {
@@ -21,25 +20,35 @@ public class EatingController {
     private EatingRepository eatingRepo;
 
     @PostMapping("/eating")
-    public ResponseEntity<?> createEating(@RequestBody EatingDTO eating){
+    public ResponseEntity<?> createEating(@RequestBody EatingDTO eating) {
         try {
-            eating.setCalories(100);
             eatingRepo.save(eating);
             return new ResponseEntity<EatingDTO>(eating, HttpStatus.OK);
-        } catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<>(eating, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
 
     @GetMapping("/eating")
-    public ResponseEntity<?> getAllEatings(){
+    public ResponseEntity<?> getAllEatings() {
         List<EatingDTO> eatings = eatingRepo.findAll();
-        if(eatings.size()>0){
+        if (eatings.size() > 0) {
             return new ResponseEntity<List<EatingDTO>>(eatings, HttpStatus.OK);
-        }
-        else{
+        } else {
             return new ResponseEntity<>("No eatings find", HttpStatus.NOT_FOUND);
+        }
+
+    }
+
+    @GetMapping("/eating/{date}")
+    public ResponseEntity<?> getEatingByDate(@PathVariable("date") String Date) {
+        EatingDTO eating = eatingRepo.findByDate(Date);
+        Optional<?> eatingOptional = Optional.ofNullable(eatingRepo.findByDate(Date));
+        if (eatingOptional.isPresent()) {
+            return new ResponseEntity<>(eatingOptional.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("No eating find in that date", HttpStatus.NOT_FOUND);
         }
 
     }
