@@ -19,8 +19,8 @@ public class NoteDTO {
 
     @Id
     private String id;
-    private String dayId;
-    private String dayDate;
+    private String dailySummaryId;
+    private String dailySummaryDate;
     private String title;
     private String text;
     private Date createdAt;
