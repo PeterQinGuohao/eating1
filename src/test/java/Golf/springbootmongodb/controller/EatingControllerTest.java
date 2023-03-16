@@ -3,6 +3,7 @@ package Golf.springbootmongodb.controller;
 import Golf.springbootmongodb.model.EatingDTO;
 import Golf.springbootmongodb.repository.EatingRepository;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -32,7 +33,8 @@ class EatingControllerTest {
     @Autowired
     private MockMvc mvc;
     private ObjectMapper objectMapper = new ObjectMapper();
-    private EatingDTO testEating= new EatingDTO("123","20230221",1000,"rice");
+    private EatingDTO testEating = new EatingDTO("123", "20230221", 1000, "rice");
+    private EatingDTO testEating2 = new EatingDTO("123", "20230221", 1002, "rice2");
     private EatingRepository eatingRepo;
     private final EatingController eatingController = new EatingController();
 
@@ -64,5 +66,25 @@ class EatingControllerTest {
         mvc.perform(get("/eating/{date}", "20230230")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    void updateByDate() throws Exception {
+        String jsonString = objectMapper.writeValueAsString(testEating);
+        System.out.println(jsonString);
+        String jsonString2 = "{\"calories\": 1003, \"food\":\"rice4\"}";
+        System.out.println(jsonString2);
+        mvc.perform(put("/eating/{date}", "20230221")
+                        .contentType(MediaType.APPLICATION_JSON).content(jsonString2))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void deleteEatingByDate() throws Exception {
+        String jsonString = objectMapper.writeValueAsString(testEating);
+        mvc.perform(post("/eating")
+                        .contentType(MediaType.APPLICATION_JSON).content(jsonString))
+                .andExpect(status().isOk());
+        mvc.perform(delete("/eating/{date}", "20230221").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
     }
 }

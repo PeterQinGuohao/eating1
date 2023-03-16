@@ -11,4 +11,5 @@ public interface EatingRepository extends MongoRepository<EatingDTO,String> {
     EatingDTO findByDate(String Date);
 
 
+    void deleteByDate(String date);
 }

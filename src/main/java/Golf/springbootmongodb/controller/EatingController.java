@@ -53,4 +53,30 @@ public class EatingController {
 
     }
 
+    @PutMapping("/eating/{date}")
+    public ResponseEntity<?> updateByDate(@PathVariable("date") String Date, @RequestBody EatingDTO eating) {
+        Optional<EatingDTO> eatingOptional = Optional.ofNullable(eatingRepo.findByDate(Date));
+        if (eatingOptional.isPresent()) {
+            EatingDTO preEating = eatingOptional.get();
+            preEating.setCalories(eating.getCalories());
+            preEating.setFood(eating.getFood() != null ? eating.getFood() : preEating.getFood());
+            eatingRepo.save(preEating);
+            return new ResponseEntity<>(preEating, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("No eating find in that date", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/eating/{date}")
+    public ResponseEntity<?> deleteEatingByDate(@PathVariable("date") String Date) {
+        try {
+            EatingDTO eating = eatingRepo.findByDate(Date);
+            //Optional<?> eatingOptional = Optional.ofNullable(eatingRepo.findByDate(Date));
+            eatingRepo.delete(eating);
+            //eatingRepo.deleteByDate(Date);
+            return new ResponseEntity<>("Successful delete with Date" + Date, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
