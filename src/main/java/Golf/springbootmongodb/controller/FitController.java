@@ -17,4 +17,9 @@ public class FitController {
     public FitBean getByDate(String date){
         return  fitRespository.findUserByUserName(date);
     }
+
+    @GetMapping("/getCaloriesTotal")
+    public Integer getCaloriesTotal(String date){
+        return  fitRespository.getCalories(date);
+    }
 }

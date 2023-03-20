@@ -40,5 +40,15 @@ class SpringbootmongodbApplicationTests {
         Assertions.assertFalse(Objects.isNull(result));
     }
 
+
+    @Test
+    void contextGetCaloriesTotal() throws Exception {
+        MvcResult result = this.mockMvc.
+                perform(get("/fit/getCaloriesTotal?date=20130210")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andReturn();
+        Assertions.assertFalse(Objects.isNull(result));
+    }
+
 }
 
