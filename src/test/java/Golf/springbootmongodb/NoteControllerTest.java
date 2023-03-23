@@ -62,8 +62,10 @@ public class NoteControllerTest {
     @Autowired
     private MockMvc mvc;
     private ObjectMapper objectMapper = new ObjectMapper();
-    private NoteDTO testNote= new NoteDTO(new ObjectId().toString(), "63f42420f40edee1863e712c",
-            "20130210","rainy day", "freezing!!!",new Date(System.currentTimeMillis()),null);
+
+    private String newNoteId = new ObjectId().toString();
+    private NoteDTO testNote= new NoteDTO(newNoteId, "63f42420f40edee1863e712c",
+            "20130222","sunny day", "excellent weather!",new Date(System.currentTimeMillis()),null);
     private NoteRepository noteRepo;
     private final NoteController noteController = new NoteController();
 
@@ -89,7 +91,7 @@ public class NoteControllerTest {
     @Test
     void testGetNoteById() throws Exception {
         //noteController.getNoteById("63fbe737bb588e4941adf8e9");
-        mvc.perform(get("/notes/{id}", "63fbe737bb588e4941adf8e9")
+        mvc.perform(get("/notes/{id}","641bd33d7ceb5c2a6f1fb255")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 //        mvc.perform(get("/notes/{id}", "63fbe737bb588e4941adf8e9")
@@ -107,5 +109,19 @@ public class NoteControllerTest {
 //                        .contentType(MediaType.APPLICATION_JSON))
 //                .andExpect(status().is4xxClientError());
     }
+
+    @Test
+    void testUpdateNote() throws Exception {
+        String updatedText = "{\"title\": \"boring\", \"text\": \"flight to Atlanta afternoon.\"}";
+        mvc.perform(put("/notes/{id}", "63fbed6b74ee5d0843bc8f0a")
+                        .contentType(MediaType.APPLICATION_JSON).content(updatedText))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void testDeleteNote() throws Exception {
+        mvc.perform(delete("/notes/{id}", newNoteId).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+    }
+
 }
 
