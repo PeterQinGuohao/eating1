@@ -59,5 +59,35 @@ public class NoteController {
         }
     }
 
+    @PutMapping("/notes/{id}")
+    public ResponseEntity<?> updateNote(@PathVariable("id") String id, @RequestBody NoteDTO note){
+        Optional<NoteDTO> noteDTOOptional = noteRepo.findById(id);
+        if (noteDTOOptional.isPresent()) {
+            NoteDTO noteToSave = noteDTOOptional.get();
+            try {
+                noteToSave.setUpdatedAt(new Date(System.currentTimeMillis()));
+                noteToSave.setTitle(note.getTitle() != null ? note.getTitle() : noteToSave.getTitle());
+                noteToSave.setText(note.getText() != null ? note.getText() : noteToSave.getText());
+                noteRepo.save(noteToSave);
+                return new ResponseEntity<NoteDTO>(noteToSave, HttpStatus.OK);
+            } catch (Exception e) {
+                return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+        } else {
+            return new ResponseEntity<>("Note not found with id " + id, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/notes/{id}")
+    public ResponseEntity<?> deleteNote(@PathVariable("id") String id) {
+        try {
+            noteRepo.deleteById(id);
+            return new ResponseEntity<>("Successfully deleted note with id " + id, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
 }
