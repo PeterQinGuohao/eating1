@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>用户列表</title></head>
+<body><a href="/index">
+    <button>返回添加页面</button>
+</a>
+<div align="center">
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Calories</th>
+            <th>Food</th>
+        </tr>
+        <tr th:each="eating:${eatingList}">
+            <td th:text="${eating.date}"></td>
+            <td th:text="${eating.calories}"></td>
+            <td th:text="${eating.food}"></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
