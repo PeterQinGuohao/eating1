@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>oneEating</title>
+</head>
+<body>
+<a href="/eatingAdd">
+    <button>Add</button>
+</a>
+<a href="/oneEating">
+    <button>Get by date</button>
+</a>
+<a href="/eatingUpdate">
+    <button>Update</button>
+</a>
+<a href="/eatingDelete">
+    <button>Delete</button>
+</a>
+<a href="/web/eating">
+    <button>Index</button>
+</a>
+<br>
+You can check eating by date:
+<form action="/web/eating/getDay" method="get">
+    <label for="date">Which day would you like to get:</label>
+    <input type="text" name="date" id="date" required><br/>
+
+    <button type="submit">Get</button>
+</form>
+</body>
+</html>

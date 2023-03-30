@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Eating List</title></head>
+    <title>SomeDay information</title>
+</head>
 <body>
 <a href="/eatingAdd">
     <button>Add</button>
@@ -16,6 +17,9 @@
 <a href="/eatingDelete">
     <button>Delete</button>
 </a>
+<a href="/web/eating">
+    <button>Index</button>
+</a>
 
 <div align="center">
     <table>
@@ -24,12 +28,15 @@
             <th>Calories</th>
             <th>Food</th>
         </tr>
-        <tr th:each="eating:${eatingList}">
-            <td th:text="${eating.date}"></td>
-            <td th:text="${eating.calories}"></td>
-            <td th:text="${eating.food}"></td>
-        </tr>
+        <td th:text="${date}"></td>
+        <td th:text="${calories}"></td>
+        <td th:text="${food}"></td>
+
     </table>
+
 </div>
+<a href="/oneEating">
+    <button>Back</button>
+</a>
 </body>
 </html>
