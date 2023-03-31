@@ -18,10 +18,9 @@ public class EatingControllerWeb {
     @Autowired
     private EatingRepository eatingRepo;
 
-    @GetMapping("/hello")
-    @ResponseBody
+    @GetMapping("/")
     public String hello() {
-        return "Hello World !!!";
+        return "eatingIndex";
     }
 
     @GetMapping("/eatingAdd")
